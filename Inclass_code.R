@@ -130,4 +130,15 @@ TSignPowerT = function(n, N, alt){
 set.seed(1)
 TSignPowerT(20, 10000, seq(-1.2,0,0.02))
 
+# wilcox 
+dsignrank(0:6,n=3)
+
+# poiner estimate
+wilcox.test(diff, alternative = "greater", conf.int = TRUE)
+
+# find walsh average
+library(Rfit)
+walsh(diff)
+sort(walsh(diff))[26]
+sort(walsh(diff))[95]
 
