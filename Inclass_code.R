@@ -142,3 +142,12 @@ walsh(diff)
 sort(walsh(diff))[26]
 sort(walsh(diff))[95]
 
+# wilcoxon test example
+experiment = c(15, 18, 8, 15, 17, 16, 13)
+control = c(10, 5, 4, 9, 12, 6, 7)
+t.test(experiment, control, var.equal = TRUE, alternative = "greater")
+wilcox.test(experiment, control, alternative = "greater")
+
+# conf int
+t.test(experiment, control, var.equal = TRUE, conf.level = 0.95)
+wilcox.test(experiment, control, conf.int = TRUE, conf.level = 0.95)
