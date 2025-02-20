@@ -252,3 +252,7 @@ TSWilcoxPowerNorm(20, 20, 10000, alt, "exp")
 # Conclusion if distribution is normal, t test has slightly more power than Wilcoxon
 # if distribution is not normal, Wilcoxon test has higher power 
 # for wilcoxon, higher variance of original distribution means less power 
+
+# Fligner-Policello test
+library(NSM3)
+pFligPoli(x,y, method = "Asymptotic")
