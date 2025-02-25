@@ -31,7 +31,7 @@ pooledTWilcoxonSize = function (num_x, num_y, N, alt_dist){
   }
   sizeT = sizeT / N; sizeWilcoxon = sizeWilcoxon / N
   result = list(Ttest = sizeT, WilcoxTest = sizeWilcoxon)
-  return(result)
+  return(result) 
 }
 
 num_x = 30
@@ -42,3 +42,21 @@ set.seed(1)
 pooledTWilcoxonSize(num_x, num_y, 10000, alt_dist = "t")
 set.seed(1)
 pooledTWilcoxonSize(num_x, num_y, 10000, alt_dist = "uniform")
+
+# Q5
+alpha = read.csv("Alpha.csv")
+dim(alpha)
+names(alpha)
+
+# pooled t test
+t.test(alpha$Solitary,alpha$Nonconfined, var.equal = TRUE, alternative = "less")
+
+# welch t test
+t.test(alpha$Solitary,alpha$Nonconfined, alternative = "less")
+
+# wilcoxon test
+wilcox.test(alpha$Solitary, alpha$Nonconfined, alternative = "less")
+
+# Fligner-Policello test
+library(NSM3)
+pFligPoli(alpha$Solitary, alpha$Nonconfined)

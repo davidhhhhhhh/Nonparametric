@@ -256,3 +256,5 @@ TSWilcoxPowerNorm(20, 20, 10000, alt, "exp")
 # Fligner-Policello test
 library(NSM3)
 pFligPoli(x,y, method = "Asymptotic")
+
+
