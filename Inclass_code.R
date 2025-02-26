@@ -257,4 +257,9 @@ TSWilcoxPowerNorm(20, 20, 10000, alt, "exp")
 library(NSM3)
 pFligPoli(x,y, method = "Asymptotic")
 
+a = c(1,1,1,1)
+b = c(1,2,0,2)
+library(NSM3)
+pFligPoli(a,b, method = "Asymptotic")
+
 
