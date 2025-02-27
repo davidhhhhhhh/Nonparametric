@@ -252,6 +252,7 @@ TSWilcoxPowerNorm(20, 20, 10000, alt, "exp")
 # Conclusion if distribution is normal, t test has slightly more power than Wilcoxon
 # if distribution is not normal, Wilcoxon test has higher power 
 # for wilcoxon, higher variance of original distribution means less power 
+# however, t test is robust when shape are symmetric 
 
 # Fligner-Policello test
 library(NSM3)

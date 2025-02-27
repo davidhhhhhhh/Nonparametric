@@ -53,3 +53,6 @@ set.seed(2)
 Size(20,20,10000,"t")
 set.seed(3)
 Size(20,20,10000,"exp")
+
+# conclusion f test is sensitive for departure from normality 
+# power for Anaasri test is low when two medians are not eqaul 
