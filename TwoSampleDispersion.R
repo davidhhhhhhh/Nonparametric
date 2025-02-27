@@ -55,4 +55,62 @@ set.seed(3)
 Size(20,20,10000,"exp")
 
 # conclusion f test is sensitive for departure from normality 
-# power for Anaasri test is low when two medians are not eqaul 
+# power for Anaasri test is low when two medians are not equal
+
+# Miller Jackknife -----
+library(NSM3)
+MillerJack(Ramsay,jung) # return q satistics
+pnorm(0.8263065) # since ha is ramsey < jung 
+# size and power simulation
+Size = function (n, m, N, setting){
+  sizeMJN = 0; sizeMJt = 0
+  library(NSM3); mExp = qexp(0.5, rate=1)
+  for (i in 1:N){
+    if (setting == 1){
+      x=rnorm(n)
+      y=rnorm(m)
+      Q = MillerJack(x,y)
+      pMJN = 2 * (1 - pnorm(abs(Q)))
+      pMJT = 2 * (1-pt(abs(Q), df=n+m-2)) # notice pvalue be absolute for Q 
+    }
+    else if (setting == 2){
+      x=rnorm(n)
+      y=rnorm(m, mean=2, sd=1)
+      Q = MillerJack(x,y)
+      pMJN = 2 * (1 - pnorm(abs(Q)))
+      pMJT = 2 * (1-pt(abs(Q), df=n+m-2))
+    }
+    else if (setting == 3){
+      x=rt(n, df=5)
+      y=rt(m, df=5)
+      Q = MillerJack(x,y)
+      pMJN = 2 * (1 - pnorm(abs(Q)))
+      pMJT = 2 * (1-pt(abs(Q), df=n+m-2))
+    }
+    else {
+      x=rt(n, df=5)
+      y=rt(m, df=5) + 1
+      Q = MillerJack(x,y)
+      pMJN = 2 * (1 - pnorm(abs(Q)))
+      pMJT = 2 * (1-pt(abs(Q), df=n+m-2))
+    }
+    if (pMJN <= 0.05){
+      sizeMJN = sizeMJN + 1
+    }
+    if (pMJT <= 0.05){
+      sizeMJt = sizeMJt + 1
+    }
+  }
+  sizeMJN = sizeMJN / N; sizeMJt = sizeMJt / N
+  result = list(MJN = sizeMJN, MJT = sizeMJt)
+  return(result)
+}
+set.seed(1)
+Size(20,20,10000,1)
+set.seed(1)
+Size(20,20,10000,2)
+set.seed(3)
+Size(20,20,10000,3)
+set.seed(3)
+Size(20,20,10000,4)
+# conclusion: for jackknife, location not matter 
