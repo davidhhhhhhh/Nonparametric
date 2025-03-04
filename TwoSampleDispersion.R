@@ -1,4 +1,4 @@
-# Ansari-Bradley
+# Ansari-Bradley-----
 Ramsay <- c(111, 107, 100, 99, 102, 106, 109, 108, 
             104, 99, 101, 96, 97, 102, 107, 113, 
             116, 113, 110, 98)
@@ -114,3 +114,8 @@ Size(20,20,10000,3)
 set.seed(3)
 Size(20,20,10000,4)
 # conclusion: for jackknife, location not matter 
+
+# Lepage test------
+library(NSM3)
+pLepage(Ramsay,jung, method="Asymptotic")
+pLepage(Ramsay,jung, method="Monte Carlo")
