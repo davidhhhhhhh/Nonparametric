@@ -92,37 +92,39 @@ pooledTWilcoxonSize = function (n, m, N, dist){
 }
 
 # Two Sample Power Function -----
-TSWilcoxPowerNorm = function(num_x, num_y, N, alt, distr){
+Power = function(num_x, num_y, N, alt, qsetup){
   m = length(alt)
-  powerT = rep(0, m); powerWilcox = rep(0,m)
+  powerTWelch = rep(0, m); powerFP = rep(0,m)
   x = rep(0, num_x); y = rep(0, num_y)
-  library(BSDA)
+  library(NSM3)
   for (j in 1:m){
     for (i in 1:N){
-      if (distr == "Normal"){
-        x = rnorm(num_x)
-        y = rnorm(num_y, mean = alt[j])
-      }
-      else if (distr == "t3"){
-        x = rt(num_x, df=3)
-        y = rt(num_y, df=3) + alt[j]
+      if (qsetup == 1){
+        x = rnorm(num_x, mean=5)
+        y = rnorm(num_y, mean=alt[j] + 5, sd=3)
       }
       else {
-        x = rexp(num_x, 1)
-        y = rexp(num_y, 1) + alt[j]
+        x = rnorm(num_x, mean=5)
+        y = rt(num_y, df=3) + 5 + alt[j]
       }
-      pt = t.test(x, y, var.equal = TRUE)$p.value
-      pWil = wilcox.test(x, y)$p.value
+      pt = t.test(x, y)$p.value
+      pFP = pFligPoli(x,y, method = "Asymptotic")$two.sided
       if (pt <= 0.05){
-        powerT[j] = powerT[j] + 1
+        powerTWelch[j] = powerTWelch[j] + 1
       }
-      if (pWil <= 0.05){
-        powerWilcox[j] = powerWilcox[j] + 1
+      if (pFP <= 0.05){
+        powerFP[j] = powerFP[j] + 1
       }
     }
   }
-  powerT = powerT / N; powerWilcox = powerWilcox / N
-  plot(alt, powerT, type="l", xlab="Alternative", ylab="power", ylim = c(0,1),main=distr)
-  lines(alt, powerWilcox, col="red", lty=2)
-  legend("top", legend=c("t test", "wilcox test"), lty=c(1,2), col=c("black", "red"), lwd=c(2,2))
+  if (qsetup == 1){
+    title = "Plot when Y is Normal"
+  }
+  else {
+    title = "Plot when Y is t3"
+  }
+  powerTWelch = powerTWelch / N; powerFP = powerFP / N
+  plot(alt, powerTWelch, type="l", xlab="Alternative", ylab="power", ylim = c(0,1),main=title)
+  lines(alt, powerFP, col="red", lty=2)
+  legend("top", legend=c("Welch t test", "Fligner-Policello test"), lty=c(1,2), col=c("black", "red"), lwd=c(2,2))
 }
