@@ -119,3 +119,9 @@ Size(20,20,10000,4)
 library(NSM3)
 pLepage(Ramsay,jung, method="Asymptotic")
 pLepage(Ramsay,jung, method="Monte Carlo")
+
+# Kolmogorov-Smirnov 
+ks.test(jung,Ramsay)
+library(NSM3)
+pKolSmirn(jung,Ramsay)
+
