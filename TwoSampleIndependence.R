@@ -9,3 +9,12 @@ cor.test(hunter_L_value, panel_score_Y, method = "kendall", alternative = "great
 # Pearson's rho (remember check normality)
 cor.test(hunter_L_value, panel_score_Y, method = "pearson", alternative = "greater")
 
+# Kendall's tau confidence interval
+library(NSM3)
+kendall.ci(hunter_L_value,panel_score_Y,alpha=0.05, type = "t")
+
+# Spearman's rho 
+cor.test(hunter_L_value, panel_score_Y, method = "spearman", alternative = "greater")
+# alternative way for doing Spearman's rho
+cor.test(rank(hunter_L_value), rank(panel_score_Y), method = "pearson", alternative = "greater")
+
