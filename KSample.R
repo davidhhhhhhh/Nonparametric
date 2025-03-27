@@ -13,3 +13,8 @@ detergent_data <- data.frame(
 # ANOVA for K Sample
 out = aov(Value~Detergent, data = detergent_data)
 anova(out)
+
+# no constant variance assumption between different groups
+oneway.test(Value~Detergent, data = detergent_data)
+
+
