@@ -57,37 +57,33 @@ TSignPowerNorm = function(n, N, alt){
   legend("topright", legend=c("t test", "sign test"), lty=c(1,2), col=c("black", "red"), lwd=c(2,2))
 }
 # Two Sample Size Function-----
-pooledTWilcoxonSize = function (n, m, N, dist){
-  sizeT = 0; sizeWilcoxon = 0
+Size = function (n, m, N, dist){
+  size1 = 0; size2 = 0
   library(BSDA); mExp = qexp(0.5, rate=1)
   for (i in 1:N){
     if (dist == "normal"){
       y = rnorm(n)
       x = rnorm(m)
-      pt = t.test(x, y, var.equal = TRUE)$p.value
-      pWil = wilcox.test(x, y)$p.value
     }
     else if (dist == "t"){
       y = rt(n, df = 3)
       x = rt(m, df = 3)
-      pt = t.test(x, y, var.equal = TRUE)$p.value
-      pWil = wilcox.test(x, y)$p.value
     }
     else {
       y = rexp(n, rate = 1)
       x = rexp(m, rate = 1)
-      pt = t.test(x, y, var.equal = TRUE)$p.value
-      pWil = wilcox.test(x, y)$p.value
     }
-    if (pt <= 0.05){
-      sizeT = sizeT + 1
+    p1 = t.test(x, y, var.equal = TRUE)$p.value
+    p2 = wilcox.test(x, y)$p.value
+    if (p1 <= 0.05){
+      size1 = size1 + 1
     }
-    if (pWil <= 0.05){
-      sizeWilcoxon = sizeWilcoxon + 1
+    if (p2 <= 0.05){
+      size2 = size2 + 1
     }
   }
-  sizeT = sizeT / N; sizeWilcoxon = sizeWilcoxon / N
-  result = list(Ttest = sizeT, WilcoxTest = sizeWilcoxon)
+  size1 = size1 / N; size2 = size2 / N
+  result = list(Ttest = size1, WilcoxTest = size2)
   return(result)
 }
 
