@@ -1,0 +1,10 @@
+City,Cost of Living Index,Rent Index,Cost of Living Plus Rent Index,Groceries Index,Restaurant Price Index,Local Purchasing Power Index
+"New York, NY, United States",100.0,100.0,100.0,100.0,100.0,100.0
+"San Francisco, CA, United States",91.8,79.7,86.5,103.8,91.2,168.9
+"Washington, DC, United States",80.9,69.8,76.0,87.4,81.6,148.1
+"Los Angeles, CA, United States",77.5,63.0,71.1,84.6,86.7,125.8
+"Philadelphia, PA, United States",76.1,41.5,60.8,91.4,73.3,131.8
+"Chicago, IL, United States",74.1,54.6,65.5,83.5,83.8,150.8
+"Dallas, TX, United States",69.1,46.2,59.0,74.0,70.7,165.1
+"Austin, TX, United States",63.9,49.8,57.7,69.8,69.1,166.9
+"Houston, TX, United States",63.1,41.0,53.3,68.4,69.8,161.4
