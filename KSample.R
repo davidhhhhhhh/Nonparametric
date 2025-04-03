@@ -104,6 +104,7 @@ set.seed(2)
 Size(10,20,30,10000,"t")
 set.seed(2)
 Size(10,20,30,10000,"exp")
+# Conclusion: ANOVA is robust for non normal distribution
 
 # Power Simulation--------
 Power = function(num_x1, num_x2, num_x3, N, alt, qsetup){
@@ -132,6 +133,8 @@ Power = function(num_x1, num_x2, num_x3, N, alt, qsetup){
       z_lab = rep("z", num_x3)
       value = c(x,y,z)
       label = c(x_lab,y_lab,z_lab)
+      df = data.frame(Value = value, 
+                      Label = label)
       pAnova = oneway.test(Value~Label, var.equal = TRUE,data = df)$p.value
       pKS = kruskal.test(Value~Label, data = df)$p.value
       if (pAnova <= 0.05){
@@ -158,4 +161,14 @@ Power = function(num_x1, num_x2, num_x3, N, alt, qsetup){
 }
 delta = seq(-1,1,0.1)
 set.seed(3)
-Power(20,20,20,100,delta,1)
+Power(20,20,20,10000,delta,1)
+set.seed(3)
+Power(20,20,20,10000,delta,2)
+set.seed(3)
+Power(20,20,20,10000,delta,3)
+set.seed(3)
+Power(10,20,30,10000,delta,1)
+set.seed(3)
+Power(10,20,30,10000,delta,2)
+set.seed(3)
+Power(10,20,30,10000,delta,3)
