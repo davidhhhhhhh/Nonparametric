@@ -52,3 +52,41 @@ permutation = function (x1,x2, N){
 }
 set.seed(5)
 permutation(ilec_df$Time,CLEC_df$Time,10000)
+
+# Example 12----------
+moon = read.csv("Moon.csv")
+permutation_paired <- function(x1, x2, N) {
+  # Ensure that the two samples are paired
+  if (length(x1) != length(x2)) {
+    stop("x1 and x2 must be of the same length (paired samples required).")
+  }
+  
+  # Compute the differences for each pair
+  d <- x1 - x2
+  # Observed statistic: the mean of the paired differences
+  current_diff <- mean(d)
+  
+  # Initialize vector to hold permutation results
+  permuted_diffs <- numeric(N)
+  
+  # Permutation: randomly flip the sign of each paired difference
+  for (i in 1:N) {
+    # For each pair, flip the sign with probability 0.5
+    signs <- sample(c(-1,1), size = length(d), replace = TRUE)
+    permuted_d <- d * signs
+    permuted_diffs[i] <- mean(permuted_d)
+  }
+  
+  # Plot the permutation distribution
+  hist(permuted_diffs, main = "Distribution of Permuted Mean Differences",
+       xlab = "Mean Difference", col = "lightgray", border = "white")
+  abline(v = current_diff, col = "blue", lwd = 2)
+  
+  # Compute two-tailed p-value:
+  # p-value is the proportion of permuted mean differences at least as extreme as the observed one
+  pvalue <- mean(abs(permuted_diffs) >= abs(current_diff))
+  
+  return(pvalue)
+}
+set.seed(5)
+permutation_paired(moon$Moon, moon$Other, 10000) # use permutation under correct setting in H0
