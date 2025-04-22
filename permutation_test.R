@@ -6,7 +6,7 @@ t.test(all_round_2, laid_off, alternative = "less")
 
 permutation = function (x1,x2, N){
   current_diff = median(x1) - median(x2)
-  all = c(x,x2)
+  all = c(x1,x2)
   median_diff = rep(0,N)
   for (i in 1:N){
     sample_indices = sample(seq_along(all), size = 3)

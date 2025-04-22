@@ -7,8 +7,8 @@ t.test(df_1$Year2001, df_1$Year2002)
 
 # 1b
 permutation = function (x1,x2, N){
-  current_diff = mean(x1) - mean(x2)
-  all = c(x,x2)
+  current_diff = abs(mean(x1) - mean(x2))
+  all = c(x1,x2)
   mean_diff = rep(0,N)
   for (i in 1:N){
     sample_indices = sample(seq_along(all), size = length(x1))
@@ -19,7 +19,8 @@ permutation = function (x1,x2, N){
   }
   hist(mean_diff, main = "distribution of sample mean difference")
   abline(v = current_diff, col = "blue")
-  pvalue = sum(mean_diff <= current_diff) / N
+  abline(v = -current_diff, col="blue")
+  pvalue = sum(abs(mean_diff) >= current_diff) / N # alt for not equal be abs 
   return(pvalue)
 }
 set.seed(10)
@@ -27,8 +28,8 @@ permutation(df_1$Year2001, df_1$Year2002,10000)
 
 # 1c
 permutation_median = function (x1,x2, N){
-  current_diff = median(x1) - median(x2)
-  all = c(x,x2)
+  current_diff = abs(median(x1) - median(x2))
+  all = c(x1,x2)
   diff_vec = rep(0,N)
   for (i in 1:N){
     sample_indices = sample(seq_along(all), size = length(x1))
@@ -39,7 +40,7 @@ permutation_median = function (x1,x2, N){
   }
   hist(diff_vec, main = "distribution of sample mean difference")
   abline(v = current_diff, col = "blue")
-  pvalue = sum(diff_vec >= current_diff) / N
+  pvalue = sum(abs(diff_vec) >= current_diff) / N
   return(pvalue)
 }
 set.seed(10)
